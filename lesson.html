@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spoken Japanese</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=IBM+Plex+Sans+Thai:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+</head>
+<body data-page="lesson">
+<div id="app" class="app" data-view="chat" data-rd="0" data-th="0">
+
+  <header class="top">
+    <div class="bar">
+      <a class="iconbtn" href="index.html" aria-label="かの いちらんに もどる" id="back"></a>
+      <div class="ttl">
+        <div class="no" id="no"></div>
+        <h1 id="title"></h1>
+      </div>
+      <button id="openSet" class="setbtn" type="button"></button>
+    </div>
+    <div id="regs" class="seg seg3" hidden></div>
+    <div id="views" class="seg seg2">
+      <button type="button" data-view="chat" aria-pressed="true"><span class="ic" data-ic="chat"></span>ぜんぶ みる</button>
+      <button type="button" data-view="card" aria-pressed="false"><span class="ic" data-ic="card"></span>1文ずつ</button>
+    </div>
+    <div id="notice" class="notice" hidden></div>
+  </header>
+
+  <section id="chat" class="chat" aria-label="かいわ"></section>
+
+  <section id="card" class="cardpane" aria-label="1文ずつ">
+    <div class="prog">
+      <div class="who"><span class="av" id="cAv" aria-hidden="true"></span><span id="cName"></span></div>
+      <div class="barp"><i id="cBar"></i></div>
+      <div class="pos" id="cPos"></div>
+    </div>
+    <div class="card">
+      <p class="ja" id="cJa"></p>
+      <p class="rd" id="cRd" lang="th"></p>
+      <div class="note" id="cNote" hidden></div>
+      <div class="sp"></div>
+      <div class="th" id="cTh" lang="th"></div>
+    </div>
+  </section>
+
+  <div class="chips">
+    <button type="button" class="chip" id="speed" aria-label="きく はやさ"><span class="lbl">はやさ</span><b id="speedV"></b></button>
+    <button type="button" class="chip" id="tRd" aria-pressed="false" lang="th"><span class="on" data-ic="check"></span><span class="off" data-ic="box"></span>คำอ่าน</button>
+    <button type="button" class="chip" id="tTh" aria-pressed="false" lang="th"><span class="on" data-ic="check"></span><span class="off" data-ic="box"></span>คำแปล</button>
+  </div>
+
+  <div class="fall">
+    <button type="button" class="big" id="playAll"></button>
+  </div>
+
+  <div class="fnav">
+    <button type="button" class="nav" id="prev"><span data-ic="left"></span>まえ</button>
+    <button type="button" class="big" id="playLine"></button>
+    <button type="button" class="nav" id="next"><span data-ic="right"></span>つぎ</button>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
