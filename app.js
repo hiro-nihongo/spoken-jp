@@ -89,7 +89,8 @@
       var a = D.createElement('a');
       a.className = 'lesson';
       a.href = 'lesson.html?id=' + encodeURIComponent(l.id);
-      a.innerHTML = '<span class="n">' + esc(l.no) + '</span><span class="t">' + fmt(l.title) + (l.th ? '<small lang="th">' + esc(l.th) + '</small>' : '') + '</span>' + IC.right;
+      var pic = l.cover ? '<img class="thumb" src="' + esc(l.cover) + '" alt="" loading="lazy" decoding="async">' : (l.icon ? '<span class="thumb ico" aria-hidden="true">' + esc(l.icon) + '</span>' : '');
+      a.innerHTML = pic + '<span class="n">' + esc(l.no) + '</span><span class="t">' + fmt(l.title) + (l.th ? '<small lang="th">' + esc(l.th) + '</small>' : '') + '</span>' + IC.right;
       list.appendChild(a);
     });
     return;
@@ -163,6 +164,7 @@
 
     function renderChat() {
       var t = talk(), h = '';
+      if (L.cover) h += '<img class="cover" src="' + esc(L.cover) + '" alt="" decoding="async">';
       if (L.scene) h += '<div class="scene">' + esc(L.scene.ja || '') + (L.scene.th ? ' <span lang="th">' + esc(L.scene.th) + '</span>' : '') + '</div>';
       t.lines.forEach(function (l, i) {
         var p = sp(l.w);

@@ -189,3 +189,9 @@ dialog.set::backdrop{ background:rgba(0,0,0,.55); }
 @media (prefers-reduced-motion:no-preference){
   html[data-calm="0"] .chat{ scroll-behavior:smooth; }
 }
+
+/* ---- 表紙の画像 ---- */
+.cover{ display:block; max-width:100%; max-height:200px; width:auto; height:auto; align-self:center; object-fit:contain; border-radius:16px; }
+.thumb{ flex:none; width:64px; height:64px; border-radius:12px; object-fit:cover; background:var(--track); }
+.thumb.ico{ display:grid; place-items:center; font-size:34px; line-height:1; }
+html[data-calm="1"] .cover{ display:none; }

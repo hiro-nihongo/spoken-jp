@@ -8,6 +8,7 @@ window.SJ_LESSON = {
   lesson: 6,
   no: '6か-1',
   title: 'はやく ねましょう',
+  cover: 'images/6-1.jpg',
   scene: { ja: 'クリニックで', th: 'ที่คลินิกโรคนอนไม่หลับ' },
   speakers: [
     { name: 'いしゃ', ini: 'い', th: 'หมอ' },
