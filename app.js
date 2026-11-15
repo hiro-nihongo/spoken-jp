@@ -123,7 +123,7 @@
     function lineSrc(t, i) { var n = String(i + 1); if (n.length < 2) n = '0' + n; return t.lines[i].audio || (t.lineAudio ? t.lineAudio.replace('{n}', n) : ''); }
     var chat = $('#chat'), notice = $('#notice');
     function talk() { return L.talks[st.t]; }
-    function sp(i) { return L.speakers[i] || { name: '?', ini: '?' }; }
+    function sp(i) { return (talk().speakers || L.speakers)[i] || { name: '?', ini: '?' }; }
     function calm() { return prefs.calm || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches); }
 
     D.title = L.no + ' ' + plain(L.title) + ' | Spoken Japanese';
