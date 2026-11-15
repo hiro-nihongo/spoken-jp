@@ -41,12 +41,12 @@ h1,h2,h3,p{ margin:0; }
 
 /* ---- 上のバー ---- */
 .top{ background:var(--sf); border-bottom:1px solid var(--line); padding:.6rem 1rem; display:flex; flex-direction:column; gap:.4rem; }
-.bar{ display:flex; align-items:center; gap:.6rem; }
+.bar{ display:flex; align-items:center; gap:.45rem; }
 .iconbtn{ width:48px; height:48px; flex:none; border-radius:14px; background:var(--soft); display:grid; place-items:center; border:0; text-decoration:none; }
 .ttl{ flex:1; min-width:0; }
 .no{ font-size:.875rem; color:var(--sub); }
-.ttl h1{ font-size:1.2rem; line-height:1.4; }
-.setbtn{ min-width:56px; min-height:52px; flex:none; border:0; border-radius:14px; background:var(--soft);
+.ttl h1{ font-size:1.05rem; line-height:1.4; }
+.setbtn{ min-width:50px; min-height:52px; flex:none; border:0; border-radius:14px; background:var(--soft);
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; font-size:.8rem; font-weight:600; }
 .seg{ display:grid; gap:3px; background:var(--track); padding:3px; border-radius:12px; }
 .seg2{ grid-template-columns:1fr 1fr; }
@@ -196,3 +196,16 @@ dialog.set::backdrop{ background:rgba(0,0,0,.55); }
 .thumb{ flex:none; width:64px; height:64px; border-radius:12px; object-fit:cover; background:var(--track); }
 .thumb.ico{ display:grid; place-items:center; font-size:34px; line-height:1; }
 html[data-calm="1"] .cover{ display:none; }
+
+/* ---- 全画面（集中モード） ---- */
+.app{ position:relative; }
+.focusexit{ position:fixed; top:.6rem; right:1rem; z-index:5; border:2px solid var(--ink); background:var(--sf); }
+.app[data-focus="1"] .top{ display:none; }
+.app[data-focus="1"] .chat{ padding-top:4.5rem; }
+.app[data-focus="1"] .cardpane{ padding-top:4.5rem; }
+@media (min-width:900px){
+  .app[data-focus="1"] .chat{ padding-top:1rem; }
+  .app[data-focus="1"] .cardpane{ padding-top:1.25rem; }
+  .app[data-focus="1"] .prog{ padding-right:4.5rem; }
+}
+@media (min-width:900px){ .ttl h1{ font-size:1.2rem; } }

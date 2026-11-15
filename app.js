@@ -21,6 +21,8 @@
     box: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/></svg>',
     play: '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>',
     stop: '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4.5" height="14" rx="1"/><rect x="13.5" y="5" width="4.5" height="14" rx="1"/></svg>',
+    full: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>',
+    small: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>',
     sound: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M17 9a4 4 0 0 1 0 6"/></svg>'
   };
   $$('[data-ic]').forEach(function (e) { e.innerHTML = IC[e.getAttribute('data-ic')] || ''; });
@@ -280,6 +282,22 @@
     $('#playLine').addEventListener('click', function () { playLine(st.cur); });
     $('#prev').addEventListener('click', function () { if (st.mode !== 'none') stop(); select(st.cur - 1, true); });
     $('#next').addEventListener('click', function () { if (st.mode !== 'none') stop(); select(st.cur + 1, true); });
+
+    /* ---- 全画面（集中モード）：上のバーをたたんで、会話だけにする ---- */
+    var fBtn = $('#focusBtn'), fExit = $('#focusExit');
+    fBtn.innerHTML = IC.full + '<span lang="th">เต็มจอ</span>'; fBtn.setAttribute('aria-label', 'ぜんがめんに する');
+    fExit.innerHTML = IC.small + '<span lang="th">ย่อจอ</span>'; fExit.setAttribute('aria-label', 'ぜんがめんを やめる');
+    function setFocus(on) {
+      app.setAttribute('data-focus', on ? '1' : '0');
+      fExit.hidden = !on;
+      try {
+        if (on && H.requestFullscreen && !D.fullscreenElement) { var p = H.requestFullscreen(); if (p && p.catch) p.catch(function () { }); }
+        if (!on && D.fullscreenElement && D.exitFullscreen) { var q = D.exitFullscreen(); if (q && q.catch) q.catch(function () { }); }
+      } catch (e) { }
+      (on ? fExit : fBtn).focus();
+    }
+    fBtn.addEventListener('click', function () { setFocus(true); });
+    fExit.addEventListener('click', function () { setFocus(false); });
 
     loadTalk();
   }
