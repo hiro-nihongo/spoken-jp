@@ -8,6 +8,7 @@ window.SJ_LESSON = {
   lesson: 7,
   no: '7か-2',
   title: 'ぜんぜん たべられない',
+  cover: 'images/7-2.jpg',
   speakers: [
     { name: 'リンダ', ini: 'リ' },
     { name: 'マイケル', ini: 'マ' }
