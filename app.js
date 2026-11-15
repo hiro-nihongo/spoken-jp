@@ -103,7 +103,7 @@
   var id = (new URLSearchParams(location.search).get('id') || '').trim();
   if (!/^[A-Za-z0-9_-]+$/.test(id)) { fail('かが えらばれていません。'); return; }
   var sc = D.createElement('script');
-  sc.src = 'lessons/' + id + '.js';
+  sc.src = 'lessons/' + id + '.js?v=' + (window.SJ_V || '');
   sc.onload = function () { if (window.SJ_LESSON) initLesson(window.SJ_LESSON); else fail('この かは まだ ありません。'); };
   sc.onerror = function () { fail('この かは まだ ありません。'); };
   D.head.appendChild(sc);
