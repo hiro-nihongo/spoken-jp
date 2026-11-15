@@ -40,7 +40,7 @@ svg{ display:block; }
 h1,h2,h3,p{ margin:0; }
 
 /* ---- 上のバー ---- */
-.top{ background:var(--sf); border-bottom:1px solid var(--line); padding:.6rem 1rem; display:flex; flex-direction:column; gap:.5rem; }
+.top{ background:var(--sf); border-bottom:1px solid var(--line); padding:.6rem 1rem; display:flex; flex-direction:column; gap:.4rem; }
 .bar{ display:flex; align-items:center; gap:.6rem; }
 .iconbtn{ width:48px; height:48px; flex:none; border-radius:14px; background:var(--soft); display:grid; place-items:center; border:0; text-decoration:none; }
 .ttl{ flex:1; min-width:0; }
@@ -48,13 +48,14 @@ h1,h2,h3,p{ margin:0; }
 .ttl h1{ font-size:1.2rem; line-height:1.4; }
 .setbtn{ min-width:56px; min-height:52px; flex:none; border:0; border-radius:14px; background:var(--soft);
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; font-size:.8rem; font-weight:600; }
-.seg{ display:grid; gap:4px; background:var(--track); padding:4px; border-radius:14px; }
+.seg{ display:grid; gap:3px; background:var(--track); padding:3px; border-radius:12px; }
 .seg2{ grid-template-columns:1fr 1fr; }
 .seg3{ grid-template-columns:repeat(3,1fr); }
-.seg button{ min-height:44px; border:0; border-radius:10px; background:transparent; font-size:.95rem;
-  display:flex; align-items:center; justify-content:center; gap:.4rem; flex-wrap:wrap; padding:.2rem; }
+.seg button{ min-height:40px; border:0; border-radius:9px; background:transparent; font-size:14px;
+  display:flex; align-items:center; justify-content:center; gap:5px; flex-wrap:wrap; padding:2px 4px; line-height:1.2; }
+.seg button svg{ width:16px; height:16px; }
 .seg button[aria-pressed="true"]{ background:var(--selbg); color:var(--selink); font-weight:700; }
-.seg small{ display:block; width:100%; font-size:.8rem; font-weight:400; text-align:center; }
+.seg small{ display:inline; font-size:12px; font-weight:400; }
 .notice{ border:2px solid var(--bd); border-radius:12px; padding:.45rem .7rem; font-size:.95rem; background:var(--sf); }
 
 /* ---- チャット ---- */
@@ -130,7 +131,7 @@ html[data-ruby="0"] rt{ display:none; }
     grid-template-areas:"top top" "chat card" "chat chips" "fall fnav"; }
   .top{ grid-area:top; flex-direction:row; flex-wrap:wrap; align-items:center; gap:1rem; }
   .bar{ flex:1; }
-  #regs{ width:27rem; }
+  #regs{ width:20rem; }
   #views{ display:none; }
   .notice{ flex-basis:100%; }
   .app[data-view] .chat{ grid-area:chat; display:flex; border-right:1px solid var(--line); }
