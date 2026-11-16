@@ -211,20 +211,26 @@
       $('#tRd').setAttribute('aria-pressed', String(st.rd));
       $('#tTh').setAttribute('aria-pressed', String(st.th));
       $('#speedV').textContent = SPLBL[prefs.speed];
-      $('#playAll').innerHTML = st.mode === 'all' ? IC.stop + 'とめる' : IC.play + 'ぜんぶ きく';
-      $('#playLine').innerHTML = st.mode === 'line' ? IC.stop + 'とめる' : IC.play + 'この文を きく';
+      // スマホの「ぜんぶ みる」では下のボタンが1つなので、1文の再生中はそれを「とめる」にする
+      var lineOnAll = st.mode === 'line' && !st.paused && !navShown();
+      $('#playAll').innerHTML = (st.mode === 'all' && !st.paused) || lineOnAll ? IC.stop + 'とめる' : (st.mode === 'all' ? IC.play + 'つづきを きく' : IC.play + 'ぜんぶ きく');
+      $('#playLine').innerHTML = st.mode === 'line' ? (st.paused ? IC.play + 'つづきを きく' : IC.stop + 'とめる') : IC.play + 'この文を きく';
     }
 
     /* ---- 音声 ---- */
-    function stop() { audio.pause(); st.mode = 'none'; ui(); }
+    // stop = やめる（つぎは頭から）、pause = 一時停止（つぎは続きから）
+    function navShown() { return getComputedStyle($('.fnav')).display !== 'none'; }
+    function stop() { audio.pause(); st.mode = 'none'; st.paused = false; ui(); }
+    function pause() { audio.pause(); st.paused = true; ui(); }
+    function resume() { st.paused = false; start(); }
     function start() {
       audio.playbackRate = SPEEDS[prefs.speed];
       var p = audio.play();
-      if (p && p.catch) p.catch(function (e) { if (e && e.name === 'AbortError') return; st.audioOk = false; st.mode = 'none'; ui(); showNotice('none'); });
+      if (p && p.catch) p.catch(function (e) { if (e && e.name === 'AbortError') return; st.audioOk = false; st.mode = 'none'; st.paused = false; ui(); showNotice('none'); });
       ui(); requestAnimationFrame(tick);
     }
     function tick() {
-      if (st.mode === 'none') return;
+      if (st.mode === 'none' || st.paused) return;
       var c = talk().cues, t = audio.currentTime;
       if (c) {
         if (st.mode === 'line' && st.cueLine && t >= c[st.cur][1] - 0.02) { stop(); return; }
@@ -234,11 +240,10 @@
       }
       requestAnimationFrame(tick);
     }
+    // ふきだしをタップ → いつも その文の頭から
     function playLine(i) {
-      var same = st.mode === 'line' && i === st.cur;
       if (st.mode !== 'none') stop();
       select(i, false);
-      if (same) return;
       if (!st.audioOk) { showNotice('none'); return; }
       var t = talk(), c = t.cues, f = lineSrc(t, i);
       st.mode = 'line';
@@ -247,8 +252,14 @@
       else { st.mode = 'none'; showNotice('line'); return; }
       start();
     }
+    // 下の「この文を きく」→ 再生中なら一時停止、止まっていたら続きから
+    function toggleLine() {
+      if (st.mode === 'line') { if (st.paused) resume(); else pause(); return; }
+      playLine(st.cur);
+    }
     function playAll() {
-      if (st.mode === 'all') { stop(); return; }
+      if (st.mode === 'all') { if (st.paused) resume(); else pause(); return; }
+      if (st.mode === 'line' && !st.paused && !navShown()) { stop(); return; }
       if (st.mode !== 'none') stop();
       if (!st.audioOk || !talk().audio) { showNotice('none'); return; }
       st.mode = 'all';
@@ -257,8 +268,8 @@
       if (talk().cues) select(0, true);
       start();
     }
-    audio.addEventListener('ended', function () { st.mode = 'none'; ui(); });
-    audio.addEventListener('error', function () { st.audioOk = false; st.mode = 'none'; ui(); showNotice('none'); });
+    audio.addEventListener('ended', function () { st.mode = 'none'; st.paused = false; ui(); });
+    audio.addEventListener('error', function () { st.audioOk = false; st.mode = 'none'; st.paused = false; ui(); showNotice('none'); });
 
     /* ---- ボタン ---- */
     chat.addEventListener('click', function (ev) {
@@ -271,6 +282,7 @@
       app.setAttribute('data-view', v);
       $$('button', $('#views')).forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
       if (v === 'chat') select(st.cur, true);
+      ui();
     });
     $('#tRd').addEventListener('click', function () { st.rd = !st.rd; ui(); });
     $('#tTh').addEventListener('click', function () { st.th = !st.th; ui(); });
@@ -279,7 +291,7 @@
       audio.playbackRate = SPEEDS[prefs.speed]; ui();
     });
     $('#playAll').addEventListener('click', playAll);
-    $('#playLine').addEventListener('click', function () { playLine(st.cur); });
+    $('#playLine').addEventListener('click', toggleLine);
     $('#prev').addEventListener('click', function () { if (st.mode !== 'none') stop(); select(st.cur - 1, true); });
     $('#next').addEventListener('click', function () { if (st.mode !== 'none') stop(); select(st.cur + 1, true); });
 
@@ -298,6 +310,8 @@
     }
     fBtn.addEventListener('click', function () { setFocus(true); });
     fExit.addEventListener('click', function () { setFocus(false); });
+
+    window.addEventListener('resize', ui);
 
     loadTalk();
   }
