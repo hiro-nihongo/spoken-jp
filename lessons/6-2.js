@@ -8,6 +8,7 @@ window.SJ_LESSON = {
   lesson: 6,
   no: '6か-2',
   title: 'ブロッコリー たべよう',
+  cover: 'images/6-2.jpg',
   scene: { ja: 'ごはんを 食べている', th: 'กินข้าวอยู่' },
   speakers: [
     { name: 'おかあさん', ini: 'お', th: 'แม่' },
