@@ -8,7 +8,7 @@ window.SJ_LESSON = {
   lesson: 3,
   no: '3か-1',
   title: 'する／しない',
-  cover: 'images/3-1.jpg',
+  cover: 'images/3-1b.jpg',
   speakers: [
     { name: 'さとう', ini: 'さ' },
     { name: 'やまだ', ini: 'や' }
