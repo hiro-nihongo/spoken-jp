@@ -2,6 +2,7 @@
 window.SJ_LESSONS = [
   { id: '3-1', no: '3か-1', title: 'する／しない', th: 'ทำ / ไม่ทำ', cover: 'images/3-1b.jpg' },
   { id: '3-2', no: '3か-2', title: 'きょうも テニス する？', th: 'วันนี้ก็เล่นเทนนิสเหรอ', cover: 'images/3-2.jpg' },
+  { id: '4-1', no: '4か-1', title: 'どこで およげば いいですか', th: 'ควรว่ายน้ำที่ไหนดี', cover: 'images/4-1.jpg' },
   { id: '6-1', no: '6か-1', title: 'はやく ねましょう', th: 'นอนเร็วๆ กันเถอะ', cover: 'images/6-1.jpg' },
   { id: '6-2', no: '6か-2', title: 'ブロッコリー たべよう', th: 'กินบร็อกโคลีกันเถอะ', cover: 'images/6-2.jpg' },
   { id: '7-2', no: '7か-2', title: 'ぜんぜん たべられない', th: 'กินไม่ได้เลย', cover: 'images/7-2.jpg' },
