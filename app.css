@@ -209,3 +209,13 @@ html[data-calm="1"] .cover{ display:none; }
   .app[data-focus="1"] .prog{ padding-right:4.5rem; }
 }
 @media (min-width:900px){ .ttl h1{ font-size:1.2rem; } }
+
+/* ---- 1文ずつに分かれたセリフ（同じ人のつづき） ---- */
+.row.cont{ margin-top:-.6rem; }
+.row.cont .av{ visibility:hidden; height:0; }
+.row.cont .nm{ display:none; }
+.sub{ font-size:.75rem; color:var(--sub); font-weight:700; }
+.row.s0.more .bub{ border-bottom-right-radius:6px; }
+.row.s0.cont .bub{ border-top-right-radius:6px; }
+.row:not(.s0).more .bub{ border-bottom-left-radius:6px; }
+.row:not(.s0).cont .bub{ border-top-left-radius:4px; }

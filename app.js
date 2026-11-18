@@ -164,17 +164,24 @@
       renderChat(); select(st.cur, false); ui();
     }
 
+    // 行の番号：台本のセリフ番号（turn）と、その中の何文目か（sub）。例 2-1、2-2
+    function lab(l, i) { return l.turn ? (l.sub ? l.turn + '-' + l.sub : String(l.turn)) : String(i + 1); }
+
     function renderChat() {
       var t = talk(), h = '';
       if (L.cover) h += '<img class="cover" src="' + esc(L.cover) + '" alt="" decoding="async">';
       if (L.scene) h += '<div class="scene">' + esc(L.scene.ja || '') + (L.scene.th ? ' <span lang="th">' + esc(L.scene.th) + '</span>' : '') + '</div>';
       t.lines.forEach(function (l, i) {
-        var p = sp(l.w);
+        var p = sp(l.w), prev = t.lines[i - 1], next = t.lines[i + 1];
+        // 同じ人の同じセリフが1文ずつに分かれているとき：2文目からは名前とアイコンを省いて、つづきに見せる
+        var cont = !!(l.turn && prev && prev.turn === l.turn);
+        var more = !!(l.turn && next && next.turn === l.turn);
         if (l.gap) h += '<hr class="gap">';
-        h += '<div class="row s' + l.w + '" data-i="' + i + '">' +
+        h += '<div class="row s' + l.w + (cont ? ' cont' : '') + (more ? ' more' : '') + '" data-i="' + i + '">' +
           '<div class="av" aria-hidden="true">' + esc(p.ini || p.name.charAt(0)) + '</div>' +
-          '<div class="col"><div class="nm">' + esc(p.name) + ' ・' + (i + 1) + '</div>' +
-          '<button type="button" class="bub" aria-label="' + (i + 1) + ' ' + esc(p.name) + '：' + esc(plain(l.ja)) + '">' +
+          '<div class="col"><div class="nm">' + esc(p.name) + ' ・' + esc(lab(l, i)) + '</div>' +
+          (cont ? '<div class="sub">' + esc(lab(l, i)) + '</div>' : '') +
+          '<button type="button" class="bub" aria-label="' + esc(lab(l, i)) + ' ' + esc(p.name) + '：' + esc(plain(l.ja)) + '">' +
           '<span class="l1"><span class="ja">' + fmt(l.ja) + '</span>' + IC.sound + '</span>' +
           (l.rd ? '<span class="rd" lang="th">' + fmt(l.rd) + '</span>' : '') + '</button>' +
           (l.th ? '<div class="th" lang="th">' + esc(l.th) + '</div>' : '') +
@@ -194,7 +201,7 @@
         if (on && scroll && r.scrollIntoView) r.scrollIntoView({ block: 'nearest', behavior: calm() ? 'auto' : 'smooth' });
       });
       var av = $('#cAv'); av.className = 'av s' + l.w; av.textContent = p.ini || p.name.charAt(0);
-      $('#cName').textContent = p.name;
+      $('#cName').textContent = p.name + ' ・' + lab(l, st.cur);
       $('#cJa').innerHTML = fmt(l.ja);
       var rd = $('#cRd'); rd.innerHTML = fmt(l.rd || ''); rd.hidden = !l.rd;
       var th = $('#cTh'); th.textContent = l.th || ''; th.hidden = !l.th;
