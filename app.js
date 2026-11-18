@@ -9,6 +9,8 @@
   function fmt(s) {
     return esc(s).replace(/\{([^|{}]+)\|([^|{}]+)\}/g, '<ruby>$1<rt>$2</rt></ruby>').replace(/\[\[(.+?)\]\]/g, '<em class="pt">$1</em>');
   }
+  // 更新したファイルが古いまま残らないように、版の番号を付けて読む
+  function withV(u) { return u + (u.indexOf('?') < 0 ? '?' : '&') + 'v=' + (window.SJ_V || ''); }
   function plain(s) { return String(s || '').replace(/\{([^|{}]+)\|[^{}]+\}/g, '$1').replace(/\[\[|\]\]/g, ''); }
 
   var IC = {
@@ -91,7 +93,7 @@
       var a = D.createElement('a');
       a.className = 'lesson';
       a.href = 'lesson.html?id=' + encodeURIComponent(l.id);
-      var pic = l.cover ? '<img class="thumb" src="' + esc(l.cover) + '" alt="" loading="lazy" decoding="async">' : (l.icon ? '<span class="thumb ico" aria-hidden="true">' + esc(l.icon) + '</span>' : '');
+      var pic = l.cover ? '<img class="thumb" src="' + esc(withV(l.cover)) + '" alt="" loading="lazy" decoding="async">' : (l.icon ? '<span class="thumb ico" aria-hidden="true">' + esc(l.icon) + '</span>' : '');
       a.innerHTML = pic + '<span class="n">' + esc(l.no) + '</span><span class="t">' + fmt(l.title) + (l.th ? '<small lang="th">' + esc(l.th) + '</small>' : '') + '</span>' + IC.right;
       list.appendChild(a);
     });
@@ -119,7 +121,7 @@
     var SPEEDS = [0.5, 0.75, 1], SPLBL = ['0.5×', '0.75×', '1.0×'];
     var st = { t: 0, cur: 0, rd: (L.lesson || 99) <= 2, th: false, mode: 'none', audioOk: true };
     var audio = new Audio(); audio.preload = 'none'; var curSrc = '';
-    function useSrc(u) { if (curSrc !== u) { curSrc = u; audio.src = u; } }
+    function useSrc(u) { if (curSrc !== u) { curSrc = u; audio.src = withV(u); } }
     function lineSrc(t, i) { var n = String(i + 1); if (n.length < 2) n = '0' + n; return t.lines[i].audio || (t.lineAudio ? t.lineAudio.replace('{n}', n) : ''); }
     var chat = $('#chat'), notice = $('#notice');
     function talk() { return L.talks[st.t]; }
@@ -169,7 +171,7 @@
 
     function renderChat() {
       var t = talk(), h = '';
-      if (L.cover) h += '<img class="cover" src="' + esc(L.cover) + '" alt="" decoding="async">';
+      if (L.cover) h += '<img class="cover" src="' + esc(withV(L.cover)) + '" alt="" decoding="async">';
       if (L.scene) h += '<div class="scene">' + esc(L.scene.ja || '') + (L.scene.th ? ' <span lang="th">' + esc(L.scene.th) + '</span>' : '') + '</div>';
       t.lines.forEach(function (l, i) {
         var p = sp(l.w), prev = t.lines[i - 1], next = t.lines[i + 1];
