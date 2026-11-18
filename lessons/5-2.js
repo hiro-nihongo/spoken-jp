@@ -8,6 +8,7 @@ window.SJ_LESSON = {
   lesson: 5,
   no: '5か-2',
   title: 'ふたつ のんでください。',
+  cover: 'images/5-2.jpg',
   scene: { ja: 'くすりやで', th: 'ที่ร้านขายยา' },
   speakers: [
     { name: 'ミカ', ini: 'ミ' },

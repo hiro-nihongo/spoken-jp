@@ -8,6 +8,7 @@ window.SJ_LESSON = {
   lesson: 17,
   no: '17か-1',
   title: 'いま なに してるの？',
+  cover: 'images/17-1.jpg',
   scene: { ja: 'でんわで', th: 'คุยโทรศัพท์' },
   speakers: [
     { name: 'ささき', ini: 'さ' },
