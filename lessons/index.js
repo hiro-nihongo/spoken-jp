@@ -1,5 +1,6 @@
 // 課のいちらん。新しい課を足すときは、ここに1行足します。
 window.SJ_LESSONS = [
+  { id: '1-1', no: '1か', title: 'どこ いく んですか？', th: 'จะไปไหนเหรอ', cover: 'images/1-1.jpg' },
   { id: '3-1', no: '3か-1', title: 'する／しない', th: 'ทำ / ไม่ทำ', cover: 'images/3-1b.jpg' },
   { id: '3-2', no: '3か-2', title: 'きょうも テニス する？', th: 'วันนี้ก็เล่นเทนนิสเหรอ', cover: 'images/3-2.jpg' },
   { id: '3-3', no: '3か-3', title: 'なに するの。', th: 'จะทำอะไรเหรอ', cover: 'images/3-3.jpg' },
