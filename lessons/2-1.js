@@ -9,6 +9,7 @@ window.SJ_LESSON = {
   lesson: 2,
   no: '2か',
   title: 'なんじに いけば いい？',
+  cover: 'images/2-1.jpg',
   speakers: [
     { name: 'たなか', ini: 'た' },
     { name: 'さとう', ini: 'さ' }
